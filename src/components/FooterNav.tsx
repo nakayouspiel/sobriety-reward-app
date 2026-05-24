@@ -14,43 +14,28 @@ const navItems = [
 
 export default function FooterNav() {
   const pathname = usePathname();
-  const buildTime = "BUILD_16_15"; // Very obvious string
+  const buildTime = "2026-05-24 16:30"; // Stable version with Swipe
 
   return (
-    <>
-      <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        backgroundColor: 'red',
-        color: 'white',
-        fontSize: '12px',
-        textAlign: 'center',
-        zIndex: 9999,
-        padding: '2px'
-      }}>
-        DEBUG: {buildTime}
+    <nav className={styles.nav}>
+      <div className={styles.container}>
+        {navItems.map((item) => {
+          const isActive = pathname === item.href;
+          const Icon = item.icon;
+          
+          return (
+            <Link 
+              key={item.href} 
+              href={item.href}
+              className={clsx(styles.item, isActive && styles.active)}
+            >
+              <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
+              <span className={styles.label}>{item.label}</span>
+            </Link>
+          );
+        })}
       </div>
-      <nav className={styles.nav}>
-        <div className={styles.container}>
-          {navItems.map((item) => {
-            const isActive = pathname === item.href;
-            const Icon = item.icon;
-            
-            return (
-              <Link 
-                key={item.href} 
-                href={item.href}
-                className={clsx(styles.item, isActive && styles.active)}
-              >
-                <Icon size={24} strokeWidth={isActive ? 2.5 : 2} />
-                <span className={styles.label}>{item.label}</span>
-              </Link>
-            );
-          })}
-        </div>
-      </nav>
-    </>
+      <div className={styles.buildInfo}>{buildTime}</div>
+    </nav>
   );
 }
