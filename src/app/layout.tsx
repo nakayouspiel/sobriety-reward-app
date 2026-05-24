@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import FooterNav from "@/components/FooterNav";
+import SwipeContainer from "@/components/SwipeContainer";
 
 export const metadata: Metadata = {
   title: "Sobriety Reward",
@@ -31,7 +32,9 @@ export default function RootLayout({
     <html lang="ja">
       <body>
         <main className="container">
-          {children}
+          <SwipeContainer>
+            {children}
+          </SwipeContainer>
         </main>
         <FooterNav />
       </body>

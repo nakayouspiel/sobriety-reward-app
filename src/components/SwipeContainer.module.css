@@ -1,0 +1,5 @@
+.container {
+  min-height: calc(100vh - var(--footer-height) - var(--safe-area-bottom));
+  width: 100%;
+  touch-action: pan-y; /* Allow vertical scroll but handle horizontal drag */
+}
