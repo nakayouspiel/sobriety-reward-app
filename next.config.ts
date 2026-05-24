@@ -14,4 +14,5 @@ const nextConfig: NextConfig = {
   turbopack: {},
 };
 
-export default withPWA(nextConfig);
+// @ts-ignore
+export default withPWA(nextConfig as any);
