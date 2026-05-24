@@ -1,4 +1,4 @@
-import { DailyLog, AchievementStats, StampType } from "@/types";
+import { AchievementStats, StampType } from "@/types";
 import { STAMP_OPTIONS } from "@/constants/stamps";
 import { differenceInDays, parseISO, isBefore, startOfDay } from "date-fns";
 
@@ -29,6 +29,7 @@ export function calculateStats(logs: Record<string, StampType>): AchievementStat
     totalSavedAmount: totalVictoryCount * victoryOption.benefits.amount,
     totalAlcoholGrams: totalVictoryCount * victoryOption.benefits.alcohol,
     totalCalories: totalVictoryCount * victoryOption.benefits.calories,
-    soberDays
+    soberDays,
+    monthlyAlcoholPoolGrams: totalVictoryCount * 40 // 40g = 2 long cans (500ml x 2) reward
   };
 }

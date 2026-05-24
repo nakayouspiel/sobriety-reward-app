@@ -10,33 +10,153 @@
 .header h1 {
   font-size: 26px;
   font-weight: 800;
-  color: var(--foreground);
   letter-spacing: -0.5px;
 }
 
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background-color: rgba(45, 157, 120, 0.1);
-  color: var(--success);
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 700;
-  margin-top: 4px;
+.subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
 }
 
 .section {
+  margin-bottom: 16px;
+}
+
+.poolSection {
   margin-bottom: 20px;
+}
+
+.poolCard {
+  background: linear-gradient(135deg, #ffffff 0%, #fffbf0 100%);
+  border: 2px solid var(--primary);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 8px 30px rgba(var(--primary-rgb), 0.1);
+}
+
+.poolHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.poolTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.poolTitle h3 {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.iconGift { color: var(--primary); }
+
+.poolBadge {
+  background-color: var(--primary);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.poolMain {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.poolValue {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.poolNumber {
+  font-size: 56px;
+  font-weight: 900;
+  color: var(--foreground);
+  line-height: 1;
+}
+
+.poolUnit {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-muted);
+}
+
+.poolVisual {
+  display: flex;
+  align-items: center;
+}
+
+.beerIconGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.8;
+}
+
+.iconBeer { color: var(--warning); }
+.plus { font-size: 24px; font-weight: 800; color: var(--text-dimmed); }
+.iconParty { color: var(--info); }
+
+.poolDesc {
+  border-top: 1px solid rgba(var(--primary-rgb), 0.1);
+  padding-top: 16px;
+}
+
+.poolDesc p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.poolGrams {
+  margin-top: 4px;
+  font-size: 11px !important;
+}
+
+.poolGrams b {
+  color: var(--foreground);
+}
+
+.chartCard {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.chartHeader h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  color: var(--text-dimmed);
+}
+
+.infoRow p {
+  font-size: 11px;
 }
 
 .motivationCard {
   background-color: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border-radius: 20px;
+  padding: 20px;
 }
 
 .cardHeader {
@@ -46,27 +166,21 @@
   margin-bottom: 12px;
 }
 
-.titleGroup {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.titleGroup h3 {
-  font-size: 12px;
+.cardHeader h3 {
+  font-size: 13px;
   font-weight: 800;
   color: var(--text-dimmed);
-  letter-spacing: 1px;
 }
 
-.iconZap { color: var(--primary); }
-
 .motivationText {
-  font-size: 17px;
-  font-weight: 700;
-  line-height: 1.5;
-  color: var(--foreground);
-  font-style: italic;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.editBtn {
+  color: var(--text-dimmed);
+  padding: 4px;
 }
 
 .textarea {
@@ -78,116 +192,5 @@
   font-size: 16px;
   background-color: #f8f9fa;
   outline: none;
-}
-
-.impactGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.impactCard {
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.iconDown { color: var(--success); }
-.iconShield { color: var(--info); }
-
-.impactInfo {
-  display: flex;
-  flex-direction: column;
-}
-
-.impactLabel {
-  font-size: 10px;
-  color: var(--text-dimmed);
-  font-weight: 600;
-}
-
-.impactValue {
-  font-size: 18px;
-  font-weight: 800;
-}
-
-.chartCard {
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 24px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-}
-
-.chartHeader {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.chartHeader h3 {
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.legend {
-  display: flex;
-  gap: 16px;
-}
-
-.legendPast, .legendCurrent {
-  font-size: 11px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.legendPast::before {
-  content: "";
-  width: 12px;
-  height: 12px;
-  background-color: #e9ecef;
-  border-radius: 3px;
-}
-
-.legendCurrent::before {
-  content: "";
-  width: 12px;
-  height: 12px;
-  background-color: var(--primary);
-  border-radius: 3px;
-}
-
-.chartNote {
-  font-size: 11px;
-  color: var(--text-dimmed);
-  margin-top: 16px;
-  line-height: 1.4;
-}
-
-.adviceCard {
-  background: linear-gradient(135deg, #1a1a1c 0%, #2d2d30 100%);
-  border-radius: 24px;
-  padding: 20px;
-  color: white;
-}
-
-.adviceCard h3 {
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--primary);
-  margin-bottom: 8px;
-}
-
-.adviceCard p {
-  font-size: 13px;
-  line-height: 1.6;
-  opacity: 0.9;
+  resize: none;
 }

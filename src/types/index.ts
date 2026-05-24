@@ -20,4 +20,5 @@ export interface AchievementStats {
   totalAlcoholGrams: number;
   totalCalories: number;
   soberDays: number;
+  monthlyAlcoholPoolGrams: number;
 }
