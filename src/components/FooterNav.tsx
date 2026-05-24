@@ -14,6 +14,7 @@ const navItems = [
 
 export default function FooterNav() {
   const pathname = usePathname();
+  const buildTime = "2026-05-24 15:46"; // Manual timestamp to verify update
 
   return (
     <nav className={styles.nav}>
@@ -34,6 +35,7 @@ export default function FooterNav() {
           );
         })}
       </div>
+      <div className={styles.buildInfo}>{buildTime}</div>
     </nav>
   );
 }
