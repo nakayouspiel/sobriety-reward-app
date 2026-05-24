@@ -1,6 +1,10 @@
-.container {
-  min-height: calc(100vh - var(--footer-height) - var(--safe-area-bottom));
+.touchWrapper {
   width: 100%;
+  min-height: calc(100vh - var(--footer-height) - var(--safe-area-bottom));
   overflow-x: hidden;
-  position: relative;
+}
+
+.container {
+  width: 100%;
+  min-height: inherit;
 }

@@ -1,9 +1,9 @@
 'use client';
 
 import { useRouter, usePathname } from 'next/navigation';
-import { motion, AnimatePresence, PanInfo } from 'framer-motion';
+import { useState, useRef, ReactNode, TouchEvent } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import styles from './SwipeContainer.module.css';
-import { ReactNode } from 'react';
 
 const routes = ['/', '/achievement', '/report'];
 
@@ -15,19 +15,37 @@ export default function SwipeContainer({ children }: SwipeContainerProps) {
   const router = useRouter();
   const pathname = usePathname();
   const currentIndex = routes.indexOf(pathname);
+  
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  const handleDragEnd = (event: any, info: PanInfo) => {
-    const swipeThreshold = 30; // Reduced threshold for better sensitivity
-    const velocityThreshold = 10; // Add velocity check for faster swipes
+  // Minimum swipe distance in pixels
+  const minSwipeDistance = 50;
 
-    if (info.offset.x < -swipeThreshold || info.velocity.x < -velocityThreshold) {
-      // Swiped left -> Go to next tab
+  const onTouchStart = (e: TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      // Swiped left -> Next tab
       const nextIndex = Math.min(currentIndex + 1, routes.length - 1);
       if (nextIndex !== currentIndex) {
         router.push(routes[nextIndex]);
       }
-    } else if (info.offset.x > swipeThreshold || info.velocity.x > velocityThreshold) {
-      // Swiped right -> Go to previous tab
+    } else if (isRightSwipe) {
+      // Swiped right -> Previous tab
       const prevIndex = Math.max(currentIndex - 1, 0);
       if (prevIndex !== currentIndex) {
         router.push(routes[prevIndex]);
@@ -36,20 +54,24 @@ export default function SwipeContainer({ children }: SwipeContainerProps) {
   };
 
   return (
-    <motion.div
-      key={pathname}
-      initial={{ opacity: 0, x: 10 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -10 }}
-      transition={{ duration: 0.15 }}
-      drag="x"
-      dragDirectionLock
-      dragConstraints={{ left: 0, right: 0 }}
-      dragElastic={0.2}
-      onDragEnd={handleDragEnd}
-      className={styles.container}
+    <div 
+      className={styles.touchWrapper}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
     >
-      {children}
-    </motion.div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={pathname}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+          className={styles.container}
+        >
+          {children}
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 }
