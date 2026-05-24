@@ -14,5 +14,5 @@ const nextConfig: NextConfig = {
   turbopack: {},
 };
 
-// @ts-ignore
-export default withPWA(nextConfig as any);
+// Temporarily disabling PWA to debug cache issue
+export default nextConfig;
