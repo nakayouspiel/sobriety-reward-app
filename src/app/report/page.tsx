@@ -9,11 +9,14 @@ import {
   CartesianGrid, 
   Tooltip, 
   ResponsiveContainer, 
-  Legend
+  Cell,
+  ReferenceLine,
+  AreaChart,
+  Area
 } from 'recharts';
 import styles from './page.module.css';
 import { StampType } from '@/types';
-import { Edit2, Save } from 'lucide-react';
+import { Edit2, Save, TrendingDown, ShieldCheck, Zap } from 'lucide-react';
 
 const getAlcoholAmount = (type: StampType): number => {
   switch (type) {
@@ -38,14 +41,13 @@ export default function ReportPage() {
     const saved = localStorage.getItem('sobriety_logs');
     const logs: Record<string, StampType> = saved ? JSON.parse(saved) : {};
 
-    // Get last 7 days of actual dates
     const data = Array.from({ length: 7 }).map((_, i) => {
       const d = new Date();
       d.setDate(d.getDate() - (6 - i));
       const dateKey = d.toISOString().split('T')[0];
       const type = logs[dateKey];
       return {
-        name: dateKey.slice(5), // MM-DD
+        name: d.toLocaleDateString('ja-JP', { weekday: 'short' }),
         current: type ? getAlcoholAmount(type) : 0,
         past: 200,
       };
@@ -60,22 +62,31 @@ export default function ReportPage() {
     setIsEditing(!isEditing);
   };
 
+  const avgCurrent = chartData.length > 0 ? chartData.reduce((acc, d) => acc + d.current, 0) / chartData.length : 0;
+  const reductionRate = Math.round(((200 - avgCurrent) / 200) * 100);
+
   return (
     <div className={styles.wrapper}>
       <header className={styles.header}>
-        <h1>レポート</h1>
-        <p className={styles.subtitle}>過去と現在の比較</p>
+        <h1>分析レポート</h1>
+        <div className={styles.badge}>
+          <ShieldCheck size={14} />
+          <span>膵臓保護モード稼働中</span>
+        </div>
       </header>
 
-      <section className={styles.motivationSection}>
+      {/* Motivation Section */}
+      <section className={styles.section}>
         <div className={styles.motivationCard}>
           <div className={styles.cardHeader}>
-            <h3>お酒を減らしたい理由</h3>
+            <div className={styles.titleGroup}>
+              <Zap size={18} className={styles.iconZap} />
+              <h3>MISSION</h3>
+            </div>
             <button onClick={handleSaveMotivation} className={styles.editBtn}>
               {isEditing ? <Save size={18} /> : <Edit2 size={18} />}
             </button>
           </div>
-...
           {isEditing ? (
             <textarea 
               className={styles.textarea}
@@ -84,60 +95,101 @@ export default function ReportPage() {
               autoFocus
             />
           ) : (
-            <p className={styles.motivationText}>{motivation}</p>
+            <p className={styles.motivationText}>「{motivation}」</p>
           )}
         </div>
       </section>
 
-      <section className={styles.graphSection}>
-        <div className={styles.card}>
-          <div className={styles.cardHeader}>
-            <h3>純アルコール摂取量 (g)</h3>
+      {/* Impact Stats */}
+      <div className={styles.impactGrid}>
+        <div className={styles.impactCard}>
+          <TrendingDown size={24} className={styles.iconDown} />
+          <div className={styles.impactInfo}>
+            <span className={styles.impactLabel}>アルコール削減率</span>
+            <span className={styles.impactValue}>{reductionRate}%</span>
+          </div>
+        </div>
+        <div className={styles.impactCard}>
+          <ShieldCheck size={24} className={styles.iconShield} />
+          <div className={styles.impactInfo}>
+            <span className={styles.impactLabel}>膵臓休息レベル</span>
+            <span className={styles.impactValue}>OPTIMAL</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Visual Comparison Chart */}
+      <section className={styles.section}>
+        <div className={styles.chartCard}>
+          <div className={styles.chartHeader}>
+            <h3>膵臓への負荷比較 (純アルコールg)</h3>
+            <div className={styles.legend}>
+              <span className={styles.legendPast}>過去</span>
+              <span className={styles.legendCurrent}>現在</span>
+            </div>
           </div>
           <div className={styles.chartContainer}>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={chartData} margin={{ top: 20, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#2c2c2c" />
+            <ResponsiveContainer width="100%" height={240}>
+              <BarChart data={chartData} margin={{ top: 20, right: 0, left: -25, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e9ecef" />
                 <XAxis 
                   dataKey="name" 
                   axisLine={false} 
                   tickLine={false} 
-                  tick={{ fill: '#71717a', fontSize: 12 }}
+                  tick={{ fill: '#adb5bd', fontSize: 12, fontWeight: 600 }}
                 />
                 <YAxis 
                   axisLine={false} 
                   tickLine={false} 
-                  tick={{ fill: '#71717a', fontSize: 12 }}
+                  tick={{ fill: '#adb5bd', fontSize: 10 }}
+                  domain={[0, 220]}
                 />
                 <Tooltip 
-                  cursor={{ fill: 'rgba(255,255,255,0.05)' }}
-                  contentStyle={{ backgroundColor: '#121212', border: '1px solid #2c2c2c', borderRadius: '8px' }}
+                  cursor={{ fill: 'rgba(0,0,0,0.02)' }}
+                  contentStyle={{ 
+                    backgroundColor: '#fff', 
+                    border: 'none', 
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                  }}
                 />
-                <Legend iconType="circle" wrapperStyle={{ paddingTop: '20px' }} />
+                {/* Past Bar (Ghostly) */}
                 <Bar 
                   dataKey="past" 
-                  name="過去 (200g)" 
-                  fill="#2c2c2c" 
-                  radius={[4, 4, 0, 0]} 
-                  barSize={16}
+                  fill="#e9ecef" 
+                  radius={[6, 6, 0, 0]} 
+                  barSize={24}
                 />
+                {/* Current Bar (Vibrant) */}
                 <Bar 
                   dataKey="current" 
-                  name="現在 (実績)" 
-                  fill="var(--success)" 
-                  radius={[4, 4, 0, 0]} 
-                  barSize={16}
-                />
+                  radius={[6, 6, 0, 0]} 
+                  barSize={24}
+                >
+                  {chartData.map((entry, index) => (
+                    <Cell 
+                      key={`cell-${index}`} 
+                      fill={entry.current === 0 ? 'var(--success)' : 'var(--primary)'} 
+                    />
+                  ))}
+                </Bar>
+                <ReferenceLine y={200} stroke="#adb5bd" strokeDasharray="3 3" />
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <p className={styles.graphHint}>※過去は1日あたりビール10本分（200g）で計算</p>
+          <p className={styles.chartNote}>
+            グレーの壁（200g）をどれだけ削り取ったかがあなたの成果です。
+          </p>
         </div>
       </section>
 
-      <div className={styles.insightCard}>
-        <h3>膵臓への負荷激減！</h3>
-        <p>過去と比較して、アルコール摂取量を平均 <b>80%以上</b> 削減できています。この調子で健康な膵臓を取り戻しましょう。</p>
+      <div className={styles.adviceCard}>
+        <h3>AIインサイト</h3>
+        <p>
+          {reductionRate > 70 
+            ? "驚異的な自己管理能力です。膵臓の細胞が着実に修復されています。このペースを維持してください。"
+            : "過去の巨大な摂取量と比較すれば、現在の数値は十分に低いです。一歩ずつ、確実に目標へ近づいています。"}
+        </p>
       </div>
     </div>
   );

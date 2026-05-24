@@ -1,11 +1,6 @@
 .wrapper {
   padding: 24px 16px;
-  animation: fadeIn 0.4s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  background-color: var(--background);
 }
 
 .header {
@@ -13,25 +8,35 @@
 }
 
 .header h1 {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 800;
+  color: var(--foreground);
+  letter-spacing: -0.5px;
 }
 
-.subtitle {
-  font-size: 14px;
-  color: var(--text-muted);
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(45, 157, 120, 0.1);
+  color: var(--success);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 4px;
 }
 
-.motivationSection {
-  margin-bottom: 24px;
+.section {
+  margin-bottom: 20px;
 }
 
 .motivationCard {
   background-color: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
 .cardHeader {
@@ -41,87 +46,148 @@
   margin-bottom: 12px;
 }
 
-.cardHeader h3 {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--text-muted);
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.editBtn {
+.titleGroup h3 {
+  font-size: 12px;
+  font-weight: 800;
   color: var(--text-dimmed);
-  padding: 4px;
-  transition: color 0.2s;
+  letter-spacing: 1px;
 }
 
-.editBtn:hover {
-  color: var(--primary);
-}
+.iconZap { color: var(--primary); }
 
 .motivationText {
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.6;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.5;
   color: var(--foreground);
+  font-style: italic;
 }
 
 .textarea {
   width: 100%;
   min-height: 80px;
-  background-color: var(--surface-hover);
-  border: 1px solid var(--primary);
-  border-radius: 8px;
+  border: 2px solid var(--primary);
+  border-radius: 12px;
   padding: 12px;
-  color: var(--foreground);
-  font-family: inherit;
   font-size: 16px;
-  resize: none;
+  background-color: #f8f9fa;
   outline: none;
 }
 
-.graphSection {
-  margin-bottom: 24px;
+.impactGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
 }
 
-.card {
+.impactCard {
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.chartContainer {
-  margin-top: 10px;
+.iconDown { color: var(--success); }
+.iconShield { color: var(--info); }
+
+.impactInfo {
+  display: flex;
+  flex-direction: column;
 }
 
-.graphHint {
+.impactLabel {
+  font-size: 10px;
+  color: var(--text-dimmed);
+  font-weight: 600;
+}
+
+.impactValue {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.chartCard {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.chartHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.chartHeader h3 {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.legend {
+  display: flex;
+  gap: 16px;
+}
+
+.legendPast, .legendCurrent {
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legendPast::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background-color: #e9ecef;
+  border-radius: 3px;
+}
+
+.legendCurrent::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background-color: var(--primary);
+  border-radius: 3px;
+}
+
+.chartNote {
   font-size: 11px;
   color: var(--text-dimmed);
-  text-align: right;
-  margin-top: 12px;
+  margin-top: 16px;
+  line-height: 1.4;
 }
 
-.insightCard {
-  background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.05) 0%, rgba(45, 157, 120, 0.05) 100%);
-  border: 1px solid var(--border);
-  border-radius: 20px;
+.adviceCard {
+  background: linear-gradient(135deg, #1a1a1c 0%, #2d2d30 100%);
+  border-radius: 24px;
   padding: 20px;
+  color: white;
 }
 
-.insightCard h3 {
-  font-size: 16px;
+.adviceCard h3 {
+  font-size: 14px;
   font-weight: 800;
   color: var(--primary);
   margin-bottom: 8px;
 }
 
-.insightCard p {
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--text-muted);
-}
-
-.insightCard b {
-  color: var(--success);
-  font-size: 18px;
+.adviceCard p {
+  font-size: 13px;
+  line-height: 1.6;
+  opacity: 0.9;
 }
