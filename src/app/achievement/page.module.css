@@ -1,0 +1,149 @@
+.wrapper {
+  padding: 24px 16px;
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.header {
+  margin-bottom: 32px;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.timerSection {
+  margin-bottom: 32px;
+}
+
+.timerCard {
+  background: linear-gradient(135deg, var(--surface) 0%, #ffffff 100%);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 32px 24px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+}
+
+.timerLabel {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.timerValue {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  margin-bottom: 24px;
+}
+
+.timerNumber {
+  font-size: 64px;
+  font-weight: 900;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(to bottom, var(--foreground), var(--text-muted));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.timerUnit {
+  font-size: 20px;
+  font-weight: 700;
+  margin-left: 8px;
+  color: var(--text-muted);
+}
+
+.progressBar {
+  height: 6px;
+  background-color: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(to right, var(--primary), #ffd700);
+  border-radius: 3px;
+  transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.timerHint {
+  font-size: 12px;
+  color: var(--text-dimmed);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.statCard {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.iconCircle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gold { background-color: rgba(212, 175, 55, 0.1); color: var(--primary); }
+.emerald { background-color: rgba(16, 185, 129, 0.1); color: var(--success); }
+.orange { background-color: rgba(245, 158, 11, 0.1); color: var(--warning); }
+.blue { background-color: rgba(59, 130, 246, 0.1); color: var(--info); }
+
+.statInfo {
+  flex: 1;
+}
+
+.statLabel {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.statValue {
+  font-size: 22px;
+  font-weight: 800;
+  display: flex;
+  align-items: baseline;
+}
+
+.statValue span {
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 4px;
+  color: var(--text-dimmed);
+}
+
+.statSub {
+  font-size: 11px;
+  color: var(--text-dimmed);
+  margin-top: 2px;
+}
